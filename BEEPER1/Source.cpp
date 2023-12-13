@@ -1,5 +1,6 @@
 #include <Windows.h>
-#define ID_TIMER 1
+
+UINT_PTR itimerID;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 VOID CALLBACK TimerProc(HWND, UINT, UINT_PTR, DWORD);
@@ -60,11 +61,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) 
 
 	switch (message) {
 	case WM_CREATE:
-		SetTimer(hwnd, ID_TIMER, 1000, TimerProc);
+		itimerID =  SetTimer(hwnd, 0, 1000, TimerProc);
 		return 0;
 
 	case WM_DESTROY:
-		KillTimer(hwnd, ID_TIMER);
+		KillTimer(hwnd, itimerID);
 		PostQuitMessage(0);
 		return 0;
 	}
